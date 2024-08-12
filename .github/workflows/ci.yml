@@ -44,5 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4.3.6
         with:
           name: pull-request-comment-branch-main-node-${{ matrix.node }}
-          path: .
-
+          path: |
+            .
+            !lib
+            !node_modules
