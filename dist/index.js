@@ -30785,7 +30785,9 @@ async function pullRequestDetails(token) {
 
 async function run() {
     try {
+        console.log("before get_input");
         const token = (0,core.getInput)("repo_token", { required: true });
+        console.log("after get_input");
         if (!isPullRequest(token)) {
             // This is a comment coming from an issue, resolve to the ref/sha of this job,
             // which is the default branch.

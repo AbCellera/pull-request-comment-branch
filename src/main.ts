@@ -5,7 +5,9 @@ import { isPullRequest, pullRequestDetails } from "./PullRequests.js";
 
 export async function run() {
   try {
+    console.log("before get_input")
     const token = getInput("repo_token", { required: true });
+    console.log("after get_input")
 
     if (!isPullRequest(token)) {
       // This is a comment coming from an issue, resolve to the ref/sha of this job,
