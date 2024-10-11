@@ -30788,9 +30788,9 @@ async function run() {
         console.log("before get_input");
         const token = (0,core.getInput)("repo_token", { required: true });
         console.log("after get_input");
-        const is_token = isPullRequest(token);
+        const is_token = await isPullRequest(token);
         console.log("is_token", is_token);
-        if (!isPullRequest(token)) {
+        if (is_token) {
             // This is a comment coming from an issue, resolve to the ref/sha of this job,
             // which is the default branch.
             (0,core.setOutput)("base_ref", github.context.ref);
