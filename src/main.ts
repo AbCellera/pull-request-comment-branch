@@ -1,4 +1,5 @@
 import { getInput, setFailed, setOutput } from "@actions/core";
+import { context } from "@actions/github";
 
 import { isPullRequest, pullRequestDetails } from "./PullRequests.js";
 
@@ -6,8 +7,14 @@ export async function run() {
   try {
     const token = getInput("repo_token", { required: true });
 
-    if (!isPullRequest(token)) {
-      throw Error("Comment is not on a pull request");
+    if (!await isPullRequest(token)) {
+      // This is a comment coming from an issue, resolve to the ref/sha of this job,
+      // which is the default branch.
+      setOutput("base_ref", context.ref);
+      setOutput("base_sha", context.sha);
+      setOutput("head_ref", context.ref);
+      setOutput("head_sha", context.sha);
+      return
     }
 
     const {

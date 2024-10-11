@@ -30782,11 +30782,18 @@ async function pullRequestDetails(token) {
 ;// CONCATENATED MODULE: ./src/main.ts
 
 
+
 async function run() {
     try {
         const token = (0,core.getInput)("repo_token", { required: true });
-        if (!isPullRequest(token)) {
-            throw Error("Comment is not on a pull request");
+        if (!await isPullRequest(token)) {
+            // This is a comment coming from an issue, resolve to the ref/sha of this job,
+            // which is the default branch.
+            (0,core.setOutput)("base_ref", github.context.ref);
+            (0,core.setOutput)("base_sha", github.context.sha);
+            (0,core.setOutput)("head_ref", github.context.ref);
+            (0,core.setOutput)("head_sha", github.context.sha);
+            return;
         }
         const { base_ref, base_sha, head_ref, head_sha, } = await pullRequestDetails(token);
         (0,core.setOutput)("base_ref", base_ref);
