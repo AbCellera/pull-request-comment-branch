@@ -30793,14 +30793,13 @@ async function run() {
             (0,core.setOutput)("base_sha", github.context.sha);
             (0,core.setOutput)("head_ref", github.context.ref);
             (0,core.setOutput)("head_sha", github.context.sha);
+            return;
         }
-        else {
-            const { base_ref, base_sha, head_ref, head_sha, } = await pullRequestDetails(token);
-            (0,core.setOutput)("base_ref", base_ref);
-            (0,core.setOutput)("base_sha", base_sha);
-            (0,core.setOutput)("head_ref", head_ref);
-            (0,core.setOutput)("head_sha", head_sha);
-        }
+        const { base_ref, base_sha, head_ref, head_sha, } = await pullRequestDetails(token);
+        (0,core.setOutput)("base_ref", base_ref);
+        (0,core.setOutput)("base_sha", base_sha);
+        (0,core.setOutput)("head_ref", head_ref);
+        (0,core.setOutput)("head_sha", head_sha);
     }
     catch (error) {
         if (error instanceof Error) {

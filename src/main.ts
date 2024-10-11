@@ -14,19 +14,20 @@ export async function run() {
       setOutput("base_sha", context.sha);
       setOutput("head_ref", context.ref);
       setOutput("head_sha", context.sha);
-    } else {
-      const {
-        base_ref,
-        base_sha,
-        head_ref,
-        head_sha,
-      } = await pullRequestDetails(token);
-
-      setOutput("base_ref", base_ref);
-      setOutput("base_sha", base_sha);
-      setOutput("head_ref", head_ref);
-      setOutput("head_sha", head_sha);
+      return
     }
+
+    const {
+      base_ref,
+      base_sha,
+      head_ref,
+      head_sha,
+    } = await pullRequestDetails(token);
+
+    setOutput("base_ref", base_ref);
+    setOutput("base_sha", base_sha);
+    setOutput("head_ref", head_ref);
+    setOutput("head_sha", head_sha);
   } catch (error) {
     if (error instanceof Error) {
       setFailed(error.message);
