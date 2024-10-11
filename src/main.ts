@@ -13,7 +13,7 @@ export async function run() {
 
     console.log("is_token", is_token)
 
-    if (is_token) {
+    if (!is_token) {
       // This is a comment coming from an issue, resolve to the ref/sha of this job,
       // which is the default branch.
       setOutput("base_ref", context.ref);
